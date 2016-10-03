@@ -1,0 +1,6 @@
+*._LS
+*.lnk
+*.old
+*.log
+*.bak
+\!blocking/
