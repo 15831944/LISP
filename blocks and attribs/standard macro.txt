@@ -1,0 +1,13 @@
+$M=$(if,
+		$(and,
+			$(>, $(getvar,blockeditlock),0)
+			),
+			^C^C_properties,
+			^C^C_bedit)
+			
+			
+			
+			
+			
+			
+$M=$(if,$(and,$(>, $(getvar,blockeditlock),0)),^C^C_properties,^C^C_bedit)

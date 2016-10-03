@@ -1,0 +1,40 @@
+;;;; 13_10_23
+;(getfieldcode obj)
+(defun kd:getfieldcode (obj / engfld fp str dict)
+  ;(setq obj (vlax-ename->vla-object (car (nentsel))))
+  ;(setq obj (getbatt (pickobj) "LOCFLD"))
+  ;DICTIONARY
+  (setq dict (vla-item (vla-GetExtensionDictionary obj) 0))
+  (setq engfld (entget (vlax-vla-object->ename (vla-item dict 0))))
+  ;AcDbField
+  (setq fp (entget (cdr (assoc 360 engfld))))
+  ;(cdr (assoc 2 fp))
+  ;(vla-get-objectID (vlax-ename->vla-object (cdr (assoc 331 fp))))
+
+
+
+  (cond
+    ((= "AcObjProp" (cdr (assoc 1 fp)))
+     (setq str (vl-string-subst
+	;"%<\AcVar Date \\f \"M.yy\">%"	     -  это когда системные переменные  ???????????
+	(strcat "\\_ObjId " (itoa (vla-get-objectID (vlax-ename->vla-object (cdr (assoc 331 fp)))))">")
+	"\\_ObjIdx 0>"
+	(cdr (assoc 2 fp))
+	))
+     (setq str (vl-string-subst (strcat "%<" str ">%") "%<\\_FldIdx 0>%" (cdr (assoc 2 engfld))))
+     )
+
+
+    ((= "AcVar" (cdr (assoc 1 fp)))
+     (setq str  (cdr (assoc 2 fp)))
+     (setq str (vl-string-subst (strcat "%<" str ">%") "%<\\_FldIdx 0>%" (cdr (assoc 2 engfld))))
+     )
+
+    )
+  str
+  );defun
+
+
+;%<\AcObjProp Object(%<\_ObjId 2127699344>%).TextString>%
+
+;%<\AcVar CustomDP.project-number>%

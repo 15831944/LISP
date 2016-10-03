@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<EplanPxfRoot Name="FN1_009" Type="Frame" Version="" PxfVersion="1.10" SchemaVersion="1.7.2280" Source="" SourceProject="C:\Program Files\EPLAN\Electric P8\Проекты\EPLAN\GOST_bas001.elk" Description="" ConfigurationFlags="77825" NumMainObjects="0" NumProjectSteps="0" NumMDSteps="0">
+<O296 A25="0" A19="76/51599" A23="0" A2861="1" A2863="1" A2883="0" A2865="0" A2867="" A2869="1000" A2871="0" A2873="5" A2875="0" A2877="1">
+<S252x2881 A1939="L" A1941="0" A1943="0" A1945="L" A1947="0" A1949="7" A1951="0" A1953="0"/>
+</O296>
+<O186 A25="0" A19="21/51597" A23="1" A825="1" A827="64" A879="1" A1819="-1" A1821="FN1_001empty" A539="42;42;42;42;42;42;42;42;42;42" A541="276" A543="0/16" A547="1" A549="1" A551="1">
+<S322x27 A25="1" R31="21/51597" A23="0" A825="1" A827="64" A839="0" A841="L" A843="L" A845="L" A847="L" A849="0" A3321="420/297" A3323="0" A3325="0" A3327="0" A3329="0" A3331="0"/>
+<P39 P12006="1" P12011="0" P12014="1" P12016="0" P12029="1" P12060="60" P14020="mka" P14021="1106649796" P14022="afa" P14023="1162574132" P18000="FN1_001" P18011="de_DE@DIN A3 Quer&#10;10 Spalten&#10;1 Zeile&#10;1 Ladder&#10;Basiert auf DIN_A3Q_0-9;en_US@DIN A3 Landscape&#10;10 Columns&#10;1 Row&#10;1 Ladder&#10;Based on DIN_A3Q_0-9;es_ES@DIN A3 Horizontal&#10;10 Columnas&#10;1 Fila&#10;1 Ladder&#10;Basada en DIN_A3Q_0-9;fr_FR@DIN A3 Paysage&#10;10 Colonnes&#10;1 Ligne&#10;1 Ladder&#10;Basée sur DIN_A3Q_0-9;nl_NL@DIN A3 Staand&#10;10 Kolommen&#10;1 Rij&#10;1 Ladder&#10;Gebaseerd op DIN_A3Q_0-9;sv_SE@DIN A3 Tvärformat&#10;10 Kolumner&#10;1 Rad&#10;1 Ladder&#10;Baserad på DIN_A3Q_0-9;da_DK@DIN A3 Flersproget&#10;10 Spalter&#10;1 Række&#10;1 Ladder&#10;Baseret på DIN_A3Q_0-9;ru_RU@DIN A3 горизонт. формат&#10;10 столбцов&#10;1 строка&#10;1 Трап&#10;основ. на DIN_A3Q_0-9;zh_CN@DIN A3 横向&#10;10 列&#10;1 行&#10;1 梯子&#10;基于 DIN_A3Q_0-9;" P18061="4"/>
+<O322 A25="0" A19="89/51598" A23="0" A825="1" A827="64" A839="201" A841="0" A843="L" A845="0.35" A847="L" A849="1" A3321="420/297" A3323="0" A3325="0" A3327="0" A3329="0" A3331="0"/>
+</O186>
+</EplanPxfRoot>

@@ -1,0 +1,62 @@
+(setq my_sel (ssget))
+
+( setq sel_for_layer ( open "set_f_layer.ext" "w" ))
+( setq sel_for_layer ( close sel_for_layer ))
+
+
+
+(defun dtr () (setq degree (getreal "\nDegrees: ")) (/ (* degree pi) 180.0) )
+
+
+
+
+
+*******************квадрат
+	X		Y		Z
+;;;  	(car pt)		(car (cdr pt))	(car (cdr (cdr pt)))
+
+(defun C:mBOX ()
+	(setq pt (getpoint "/n укажи точку центра квадрата, дубина!"))
+	(setq m_dlin (getdist "/n Длина="))
+	(setq m_vys (getdist "/n Высота="))
+	
+	(setq pt1 (car pt))
+
+	(command "отрезок" pt1 pt2)
+
+
+	(command "отрезок" pt1 pt3)
+	(command "отрезок" pt3 pt4)
+	(command "отрезок" pt2 pt4)
+
+
+
+
+
+*/********************************************
+
+	(setq pt1 ((getdist) (getdist ) (getdist)) -  работает
+
+
+*/********************************************
+
+
+(/ (* 180 (angle (getpoint) (getpoint))) pi) -  работает
+
+
+*/********************************************
+
+(distance (getpoint) (getpoint)) -  работает
+
+
+*/********************************************
+
+
+
+
+
+
+
+
+
+

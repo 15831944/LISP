@@ -1,0 +1,5 @@
+смещение при печати в PDF принтером DWG to PDF
+убираецца 
+http://usa.autodesk.com/adsk/servlet/ps/dl/item?siteID=123112&id=13238380&linkID=9240618
+http://usa.autodesk.com/adsk/servlet/ps/dl/item?siteID=123112&id=15074619&linkID=9240618
+ложить в c:\Program Files\AutoCAD 2008\Drv\

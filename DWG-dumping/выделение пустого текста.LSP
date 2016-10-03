@@ -1,0 +1,1 @@
+(sssetfirst nil (ssget "_X" '((1 . ""))))

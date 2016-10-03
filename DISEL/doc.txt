@@ -1,0 +1,39 @@
+Выражения DIESEL (Direct Interpretively Evaluated String Expression Language)
+всегда принимают на вход и возвращают строки.
+DIESEL можно использовать в макросах меню и для отображения сведений в строке состояния. 
+
+http://www.cadforum.cz/cadforum_en/tips.asp?t=diesel+string
+http://www.cadforum.cz/cadforum_en/qaID.asp?tip=3676
+
+
+
+
+
+
+    + (сложение)
+    - (вычитание)
+    * (умножение)
+    / (деление)
+    = (равно)
+    < (меньше)
+    > (больше)
+    != (не равно)
+    <= (меньше или равно)
+    >= (больше или равно)
+    and
+    angtos
+    edtime
+    eq
+    eval
+    fix
+    getenv
+    getvar
+    if
+    index
+    nth
+    or
+    rtos
+    strlen
+    substr
+    upper
+    xor

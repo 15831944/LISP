@@ -1,0 +1,5 @@
+(setq cblack (vla-GetInterfaceObject (vlax-get-acad-object) "AutoCAD.AcCmColor.18"))
+(vla-put-entityColor cblack -1023409926)
+
+black	-1023409926
+red		-1023410175

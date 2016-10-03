@@ -1,0 +1,14 @@
+Attdef - ^C^C_ddedit 
+Attribute - ^C^C_ATTIPEDIT
+Attribute Block - ^C^C_eattedit
+Attribute Dynamic Block - ^C^C_eattedit
+Block - $M=$(if,$(and,$(>,$(getvar,blockeditlock),0)),^C^C_properties,^C^C_bedit)
+Dynamic Block - $M=$(if,$(and,$(>,$(getvar,blockeditlock),0)),^C^C_properties,^C^C_bedit)
+
+Mtext - ^C^C_mtedit 
+Text - ^C^C_ddedit 
+
+
+
+
+

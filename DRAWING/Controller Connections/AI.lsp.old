@@ -1,0 +1,240 @@
+;;; 13_10_08
+;;;      -=AI=-
+;;; подключения к шкафам контроллеров
+;;; договоримся - базу данных в лисп загружать с шапкой таблицы ((шапка)(данные1)(данные2)...)
+;;; и потом ее разделять на db:head и db:data
+;;; db - database
+;;; пример структуры данных для отрисовкиподключений
+;;;   шкаф    клеммник  кабель     сигналы   .....
+;;; ("ШВО1Б" ("2XT11" ("UMA-4128" ("LBD70CP001" nil "Давление пара на эжектор основной" "420AI" "1" "2" "КВВГЭнг" "4,0000" "1,5" "1АТМ1" "UMA-4128" "Стенд датчиков UMA GZ021 " "ШВО1Б" "2XT11" "15" "16"))) ("2XT12" ("UMA-4129" ("LCA21CP001" nil "Давление на напоре конденсатного насоса LCA21AP001" "420AI" "1" "2" "КВВГЭнг" "19,0000" "1,5" "1АТМ1" "UMA-4129" "Стенд датчиков UMA GZ022 " "ШВО1Б" "2XT12" "1" "2") ("LCA22CP001" nil "Давление на напоре конденсатного насоса LCA22AP001" "420AI" "1" "2" "КВВГЭнг" "19,0000" "1,5" "1АТМ1" "UMA-4129" "Стенд датчиков UMA GZ022 " "ШВО1Б" "2XT12" "3" "4") ("LCA23CP001" nil "Давление в коллекторе конденсата подогревателей сетевой воды" "420AI" "1" "2" "КВВГЭнг" "19,0000" "1,5" "1АТМ1" "UMA-4129" "Стенд датчиков UMA GZ022 " "ШВО1Б" "2XT12" "5" "6") ("NDA21CP001" nil "Давление сетевой воды перед сетевым подогревателем NDD21AC001" "420AI" "1" "2" "КВВГЭнг" "19,0000" "1,5" "1АТМ1" "UMA-4129" "Стенд датчиков UMA GZ022 " "ШВО1Б" "2XT12" "7" "8") ("NDA21CP002" nil "Давление сетевой воды за сетевым подогревателем NDD21AC001" "420AI" "1" "2" "КВВГЭнг" "19,0000" "1,5" "1АТМ1" "UMA-4129" "Стенд датчиков UMA GZ022 " "ШВО1Б" "2XT12" "9" "10") ("NDA22CP001" nil "Давление сетевой воды перед сетевым подогревателем NDD22AC001" "420AI" "1" "2" "КВВГЭнг" "19,0000" "1,5" "1АТМ1" "UMA-4129" "Стенд датчиков UMA GZ022 " "ШВО1Б" "2XT12" "11" "12") ("NDA22CP002" nil "Давление сетевой воды за сетевым подогревателем NDD22AC001" "420AI" "1" "2" "КВВГЭнг" "19,0000" "1,5" "1АТМ1" "UMA-4129" "Стенд датчиков UMA GZ022 " "ШВО1Б" "2XT12" "13" "14")) ("UMA-4130" ("NDA11CP001" nil "Давление на напоре сетевого насоса NDA11AP001" "420AI" "1" "2" "КВВГЭнг" "4,0000" "1,5" "1АТМ1" "UMA-4130" "Стенд датчиков UMA GZ023 " "ШВО1Б" "2XT12" "15" "16"))) ("2XT13" ("UMA-4131" ("NDA12CP001" nil "Давление на напоре сетевого насоса NDA12AP001" "420AI" "1" "2" "КВВГЭнг" "4,0000" "1,5" "1АТМ1" "UMA-4131" "Стенд датчиков UMA GZ024 " "ШВО1Б" "2XT13" "1" "2")) ("UMA-4132" ("NDA50CP001" nil "Давление прямой сетевой воды на ЦТП за РК" "420AI" "1" "2" "КВВГЭнг" "7,0000" "1,5" "1АТМ1" "UMA-4132" "Стенд датчиков UMA GZ019 " "ШВО1Б" "2XT13" "3" "4") ("NDA60CP001" nil "Давление прямой сетевой воды на на выходе из мини-ТЭЦ" "420AI" "1" "2" "КВВГЭнг" "7,0000" "1,5" "1АТМ1" "UMA-4132" "Стенд датчиков UMA GZ019 " "ШВО1Б" "2XT13" "5" "6") ("PAB10CP001" nil "Давление оборотной охлаждающей воды на циркнасосную" "420AI" "1" "2" "КВВГЭнг" "7,0000" "1,5" "1АТМ1" "UMA-4132" "Стенд датчиков UMA GZ019 " "ШВО1Б" "2XT13" "7" "8")) ("UMA-4133" ("NDB20CP001" nil "Давление в коллекторе обратной сетевой воды" "420AI" "1" "2" "КВВГЭнг" "4,0000" "1,5" "1АТМ1" "UMA-4133" "Стенд датчиков UMA GZ019 " "ШВО1Б" "2XT13" "9" "10")) ("UMA-4134" ("NDB30CP001" nil "Давление сетевой воды на всасе сетевых насосов" "420AI" "1" "2" "КВВГЭнг" "4,0000" "1,5" "1АТМ1" "UMA-4134" "Стенд датчиков UMA GZ023 " "ШВО1Б" "2XT13" "11" "12")) ("UMA-4221" ("LAC11CP002" nil "Давление на напоре питательного насоса LAC11AP001" "420AI" "LAC11AP001(I+)" "24-" "КВВГЭнг" "5" "1,5" "1АТМ1" "UMA-4221" "Щит расходомеров, X1" "ШВО1Б" "2XT13" "13" "14") ("LAC12CP002" nil "Давление на напоре питательного насоса LAC12AP001" "420AI" "LAC12AP001(I+)" nil "КВВГЭнг" "5" "1,5" "1АТМ1" "UMA-4221" "Щит расходомеров, X1" "ШВО1Б" "2XT13" "15" "16")))) 
+
+;;; по сигналам AI - работает
+
+;(load (strcat #lisppath "DATA-Tables\\get-closer-from-.LSP"))
+;(load (strcat #lisppath "Excel\\tbl-to-excel.LSP"))
+(load (strcat #lisppath "DRAWING\\подключения к контроллеру\\xlsformatlib.LSP"))
+(load (strcat #lisppath "DATA-Tables\\ziplist.LSP"))
+(load (strcat #lisppath "TEXT & MTEXT\\mtxtlib.lsp"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;если надо
+(setq db:head (car (excel>lst)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq db:data (append '("table") (db|formatdata (excel>lst))))
+;(lst>excel db:data)    тест на соответствие пустых ячеек
+
+
+;(setq xlsline (nth 14 db:data))
+;(db|gpar "N кабеля" (nth 14 db:data))
+
+;(setq db:data (append '("table") db:data))
+
+
+
+;making tree
+(setq lst2 (db|mapzip db:data "cabinet"))
+(setq lst3 (db|mapzip lst2 "clamp"))
+(setq lst4 (db|mapzip lst3 "N кабеля"))
+
+(setq pt (getpoint))
+
+
+
+;(gr|addcabinet (nth 1 lst4))
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;   M A I N     F U N C T I O N S   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;(gr|addall lst4)
+(defun gr|addall (db)
+  (mapcar
+    '(lambda (x)
+       (gr|addcabinet x)
+       (setq pt (mapcar '+ pt '(0 -50 0)))
+       )
+    (cdr db)
+    )
+  (alert
+    "\n посмотреть кабели ГЕРДА и др. кот. пишутся не так как КВВГ"
+    "\n проверить нестандартные марки и перемычки"
+    "\n многостроковые длинные аттрибуты!!  наезды"
+    )
+  )
+;(setq db (nth 1 lst4))
+;(setq db (nth 1 db))
+;(setq db (nth 2 db))
+
+(defun gr|addcabinet (db)
+  (gr|add-cabinet-head (car db))
+  (mapcar 'gr|add-clamp (cdr db))
+  )
+;(gr|addcabinet db)
+
+(defun gr|add-clamp (db)
+  (gr|add-clamp-head (car db))
+  (mapcar 'gr|add-cable (cdr db))
+  (setq pt (mapcar '+ pt '(0 -10 0)))
+  )
+;(gr|add-clamp db)
+
+(defun gr|add-cable (db)
+  (if (/= (car db) "") (gr|add-cable-head db))
+  (mapcar 'gr|add-signal (cdr db))
+  )
+;(gr|add-cable db)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun gr|add-cabinet-head (str / bobj)
+  (setq	bobj (vla-InsertBlock #modspace (vlax-3d-point (mapcar '+ pt '(0 0 0)))
+	       (strcat #lisppath "!blocking\\controller\\controller_cabinet.dwg") 1 1 1 0))
+  (vla-put-TextString (getbatt bobj "CABINET") str)
+  (setq pt (mapcar '+ pt '(0 -10 0)))
+  );defun
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun gr|add-clamp-head (str / bobj)
+  (setq	bobj (vla-InsertBlock #modspace (vlax-3d-point (mapcar '+ pt '(0 0 0)))
+	       (strcat #lisppath "!blocking\\controller\\controller_clamp.dwg") 1 1 1 0))
+  (vla-put-TextString (getbatt bobj "CLAMP") str)
+  (setq pt (mapcar '+ pt '(0 -10 0)))
+  );defun
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun gr|add-cable-head (db / bobj ctype)
+  (setq	bobj (vla-InsertBlock #modspace (vlax-3d-point (mapcar '+ pt '(-83 -5 0)))
+	       (strcat #lisppath "!blocking\\cablelist\\cbl_cnct.dwg") 1 1 1 0))
+  
+  (vla-put-TextString (getbatt bobj "NUMBER") (car db))
+  (vla-put-TextString (getbatt bobj "TYPE") (setq ctype (db|gpar "тип" (cadr db))))
+  (vla-put-TextString (getbatt bobj "CORES") (db|gpar "жильность" (cadr db)))
+  (vla-put-TextString (getbatt bobj "SECTION") (db|gpar "сеч" (cadr db)))
+  (vla-put-TextString (getbatt bobj "SIGNALNAME") (db|gpar "meas_name" (cadr db)))
+  (vla-put-TextString (getbatt bobj "LOCFLD") (db|gpar "трасса" (cadr db)))
+  (vla-put-TextString (getbatt bobj "LOCCAB") (strcat "Шкаф контроллеров " (db|gpar "cabinet" (cadr db)) ", " (db|gpar "clamp" (cadr db))))
+  (vla-put-Textstring (getbatt bobj "SIGN") (strcat "%<\\AcObjProp Object(%<\\_ObjId " (itoa (vla-get-ObjectID (getbatt bobj "TYPE"))) ">%).TextString>%" "  " "%<\\AcObjProp Object(%<\\_ObjId " (itoa (vla-get-ObjectID (getbatt bobj "CORES"))) ">%).TextString>%" "x" "%<\\AcObjProp Object(%<\\_ObjId " (itoa (vla-get-ObjectID (getbatt bobj "SECTION"))) ">%).TextString>%"))
+  (if (member ctype '("КВВГЭнг" "КВВГЭ" "КВВГЭнг-LS"))
+    (vla-put-Value (getbdyn bobj "Экранированность") "Экран")
+    (vla-put-Value (getbdyn bobj "Экранированность") "БезЭкрана")
+    )
+  (vla-addline
+    #modspace
+    (vlax-3D-point (mapcar '+ pt '(-3 -2.5 0)))
+    (vlax-3D-point (mapcar '+ pt (list -3 (- 2.5 (* 10 (length (cdr db))) 0))))
+    )
+  
+  );defun
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun gr|add-signal (db / bobj)
+  (setq	bobj (vla-InsertBlock #modspace (vlax-3d-point (mapcar '+ pt '(0 0 0)))
+	       (strcat #lisppath "!blocking\\controller\\controller_AI420.dwg") 1 1 1 0))
+  ;("CLAM2" "CLAM1" "MARK2" "MARK1" "KKS" "MEAS_NAME") 
+  (vla-put-TextString (getbatt bobj "meas_name") (db|gpar "meas_name" db))
+  (vla-put-TextString (getbatt bobj "KKS") (db|gpar "KKS" db))
+  (vla-put-TextString (getbatt bobj "clam1") (db|gpar "clam1" db))
+  (vla-put-TextString (getbatt bobj "clam2") (db|gpar "clam2" db))
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (defun db|genmarkforcad (markparamname / mark)
+    ;(setq markparamname "mark1")
+    (setq mark (db|gpar markparamname db))
+    (cond
+      ( (and
+	  (member mark '("1" "2" "3" "4"       "16" "18"))
+	  (db|gpar "KKS" db)
+	  )
+       (strcat (db|gpar "KKS" db) "-" mark))
+
+      ( (and
+	  (member mark '("-1" "-2" "-3" "-4"  "-16" "-18"))
+	  (db|gpar "KKS" db)
+	  )
+       (strcat (db|gpar "KKS" db) mark))
+
+      ( (and
+	  (member mark '("16-" "16+" "18-" "18+"))
+	  (db|gpar "KKS" db)
+	  )
+       (strcat (db|gpar "KKS" db) "-" (strcut mark 0 -1)))
+
+       ;для марок электрических схем задвижек
+       ( (and
+	   (> (atoi mark) 0)
+	   (< (atoi mark) 100)
+	   (db|gpar "KKS" db)
+	   )
+       (strcat (db|gpar "KKS" db) "-" mark))
+       (T mark)
+       )
+     );defun
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (vla-put-TextString (getbatt bobj "mark1") (db|genmarkforcad "mark1"))
+  (vla-put-TextString (getbatt bobj "mark2") (db|genmarkforcad "mark2"))
+  (if (not (= "" (db|gpar "KKS" db) (db|gpar "mark1" db) (db|gpar "mark1" db)))
+    (progn
+      (vla-addline #modspace (vlax-3D-point (mapcar '+ pt '(0 -2.5 0))) (vlax-3D-point (mapcar '+ pt '(-3 -2.5 0))) )
+      (vla-addline #modspace (vlax-3D-point (mapcar '+ pt '(0 -7.5 0))) (vlax-3D-point (mapcar '+ pt '(-3 -7.5 0))) )
+      )
+    )
+  (setq pt (mapcar '+ pt '(0 -10 0)))
+  );defun
+;(gr|add-signal db)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;  исправление наезда строк многостроковых аттрибутов  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;(kd:mtextstring-unformat (vla-get-TextString obj))
+
+
+
+(defun qwd ( / lst)
+  (setq lst (ss->lsto* (ssget '((0 . "INSERT")))))
+  (setq lst (mapcar '(lambda (x) (getbatt x "MEAS_NAME")) lst))
+  ;(setq obj (vlax-ename->vla-object (car (nentsel))))
+
+  (mapcar
+    '(lambda (obj / str)
+       (setq str (kd:mtextstring-unformat (vla-get-TextString obj)))
+       (setq str (strcat "\\pxb0.6,se0.72;" str))
+       (vla-put-TextString obj str)
+       (vla-put-ScaleFactor obj 0.8)
+       )
+    lst
+    )
+  );defun
+;(qwd)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

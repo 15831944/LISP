@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<objekt
+Name="Минская ТЭЦ-5.Корректировка проекта 1 очереди строительства"
+ArchiveID="1118"
+Famgip="Русаков"
+Famnach="Королев"
+Famconstr="Евченко"
+Famzav="Позняк"
+Faminzh="Подолинский"
+Famnorm="Ярошенко">
+<uzel Name="ДКС. Коммерческий учет расхода газа для блока № 2. Передача сигналов на Минскоблгаз. КИП и А" ArchiveID="83">
+<draft Name="Общие данные" draftnumber="1">
+<list number="1"></list>
+</draft>
+<draft Name="Схема функциональная" draftnumber="2">
+</draft>
+</uzel>
+</objekt>
