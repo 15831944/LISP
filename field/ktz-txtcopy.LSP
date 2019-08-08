@@ -1,100 +1,9 @@
-;;; Копирует текст исходного в конечный (2 тыка)
-;;; Тыкать в Текст/Мтекст/Блок
-;;; использует ktz-get-blk-attrib-ename-by-pt (ближайший к указанию аттрибут) ktz-get-blk-attrib-ename или (из списка)
-;;; 		уже блин не использует
-;;; обязательно в настройках динамического ввода наличие галочки возле
-;;; "включить ввод размеров где возможно"
-
-
-;;;(defun c:ktz-txtcopy-old ( /
-;;;			  ents			;список entsel
-;;;			  ent			;ename
-;;;			  ename-get		
-;;;			  t-str			;текст генерируемого поля
-;;;			  flag			;способ выбора аттрибута в блоке
-;;;			  )
-;;;  (while (= (setq ents (entsel "\nоткуда брать содержимое")) nil))
-;;;  
-;;;  (cond
-;;;    ;1
-;;;    ((or
-;;;       (eq "TEXT" (cdr (assoc 0 (entget (car ents)))))
-;;;       (eq "MTEXT" (cdr (assoc 0 (entget (car ents)))))
-;;;     );or
-;;;     (setq ent (car ents))
-;;;    );1
-;;;    ;2
-;;;    ((eq "INSERT" (cdr (assoc 0 (entget (car ents)))))
-;;;     (progn
-;;;       (initget "Точка Выбрать _Точка Выбрать")
-;;;       (setq flag (getkword "\n Выбирать аттрибут по точке или выбрать из списка?  : [Точка/Выбрать] <Точка>"))
-;;;       (cond
-;;;	 ;1
-;;;	 ((= flag "Выбрать")
-;;;	  (setq ent (ktz-get-blk-attrib-ename ents))			;выбор из списка
-;;;	  )
-;;;	 ;2
-;;;	 ((= flag "Точка")
-;;;	  (setq ent (ktz-get-blk-attrib-ename-by-pt ents))		;выбор по точке
-;;;	 )
-;;;       );cond
-;;;     );progn
-;;;    );2
-;;;  );cond
-;;;
-;;;  (setq	t-str (cdr (assoc 1 (entget ent))))
-;;;  (while (= (setq ents (entsel "\n\nкуда писать")) nil))
-;;;  (cond
-;;;    ;1
-;;;    ((or
-;;;       (eq "TEXT" (cdr (assoc 0 (entget (car ents)))))
-;;;       (eq "MTEXT" (cdr (assoc 0 (entget (car ents)))))
-;;;     );or
-;;;     (setq ent (car ents))
-;;;    );1
-;;;    ;2
-;;;    ((eq "INSERT" (cdr (assoc 0 (entget (car ents)))))
-;;;     (progn
-;;;       (initget "Точка Выбрать -Точка Выбрать")
-;;;       (setq flag (getkword "\n Выбирать аттрибут по точке или выбрать из списка?  : [Точка/Выбрать] <Точка>"))
-;;;       (cond
-;;;	 ;1
-;;;	 ((= flag "Выбрать")
-;;;	  (setq ent (ktz-get-blk-attrib-ename ents))			;выбор из списка
-;;;	  )
-;;;	 ;2
-;;;	 ((= flag "Точка")
-;;;	  (setq ent (ktz-get-blk-attrib-ename-by-pt ents))		;выбор по точке
-;;;	 )
-;;;       );cond
-;;;     );progn
-;;;    );2
-;;;  );cond
-;;;  (princ ent)
-;;;  (setq ename-get (entget ent))
-;;;  (setq	ename-get (subst (cons 1 t-str)
-;;;			 (assoc 1 ename-get)
-;;;			 ename-get
-;;;		  )
-;;;  )
-;;;  (entmod ename-get)
-;;;  (entupd (cdr (assoc -1 ename-get)))
-;;;  (princ)
-;;;)					;defun
-;;;
-;;;
-
-;;;*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-
-
-
-
 (defun c:ktz-txtcopy (
 		      /
 		      ent-from
 		      ent-to
 		      ename-get
-		      fl		; флаг правильно выбранного объекта
+		      fl		; С„Р»Р°Рі РїСЂР°РІРёР»СЊРЅРѕ РІС‹Р±СЂР°РЅРЅРѕРіРѕ РѕР±СЉРµРєС‚Р°
 		      tmp
 		      str
 		      doc
@@ -118,7 +27,7 @@
 
     
   (while (not fl)
-    (setq ent-from (car (nentsel "\n Укажите источник данных ... :"))
+    (setq ent-from (car (nentsel "\n РЈРєР°Р¶РёС‚Рµ РёСЃС‚РѕС‡РЅРёРє РґР°РЅРЅС‹С… ... :"))
 	  tmp (cdr (assoc 0 (entget ent-from)))
 	  );setq
     (if	(or
@@ -130,7 +39,7 @@
       ;then	
       (setq fl T)
       ;else
-      (princ "\n *** Не найден источник данных ***")
+      (princ "\n *** РќРµ РЅР°Р№РґРµРЅ РёСЃС‚РѕС‡РЅРёРє РґР°РЅРЅС‹С… ***")
       );if
     );while
   (setq fl nil)
@@ -138,7 +47,7 @@
 
   (setq	str (cdr (assoc 1 (entget ent-from))))
 
-  (while (setq es (nentsel "\n Укажите объект-приемник данных ... :"))
+  (while (setq es (nentsel "\n РЈРєР°Р¶РёС‚Рµ РѕР±СЉРµРєС‚-РїСЂРёРµРјРЅРёРє РґР°РЅРЅС‹С… ... :"))
     (if (and
 	  es
 	  (setq ent-to (car es))
@@ -158,7 +67,7 @@
       (entupd (cdr (assoc -1 ename-get)))
       (vl-cmdf "_updatefield" (cdr (assoc -1 ename-get)) "")
       ) ;progn
-    (princ "\n *** Не верный выбор объекта-приемника ***")
+    (princ "\n *** РќРµ РІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ РѕР±СЉРµРєС‚Р°-РїСЂРёРµРјРЅРёРєР° ***")
     ) ;if ent
   (acet-error-restore)
   (vla-endundomark doc)
